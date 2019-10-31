@@ -1,6 +1,6 @@
-# idam-chart
+# chart-idam-preview
 
-Strategic IDAM product chart
+Strategic IDAM product chart meant for preview environments.
 
 This chart is intended for deploying the IDAM product stack, including:
  - ForgeRock components
