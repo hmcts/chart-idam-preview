@@ -67,18 +67,23 @@ idam:
 
 The following table lists the configurable parameters of the IDAM chart and their default values.
 
-| Parameter                          | Description                    | Default                                    |
-| ---------------------------------- | -------------------------------| ------------------------------------------ |
-| `global.adminUser`                 | Username of IDAM service owner | `nil` (required)                           |
-| `global.adminPassword`             | Password of IDAM service owner | `nil` (required, provided by the pipeline) |
-| `global.ingressIP`                 | Ingress controllers IP address | `nil` (required, provided by the pipeline) |
-| `global.consulIP`                  | Consul servers IP address      | `nil` (required, provided by the pipeline) |
-| `configurer.enabled`               | Enabling IDAM configurer       | `false`                                    |
-| `configurer.services.label`        | Service label                  | `nil` (required if configurer is enabled)  |
-| `configurer.services.clientID`     | Service client ID              | `nil` (required if configurer is enabled)  |
-| `configurer.services.clientSecret` | Service client secret          | `nil` (required if configurer is enabled)  |
-| `configurer.services.redirectURL`  | Service redirect URL           | `nil` (required if configurer is enabled)  |
-| `configurer.roles.id`              | Role ID                        | `nil` (required if configurer is enabled)  |
-| `configurer.users.email`           | User email                     | `nil` (required if configurer is enabled)  |
-| `configurer.users.group`           | User group                     | `nil` (required if configurer is enabled)  |
-| `configurer.users.roles`           | List of user roles             | `nil` (required if configurer is enabled)  |
+| Parameter                                     | Description                          | Default                                          |
+| --------------------------------------------- | ------------------------------------ | ------------------------------------------------ |
+| `global.adminUser`                            | Username of IDAM service owner       | `nil` (required)                                 |
+| `global.adminPassword`                        | Password of IDAM service owner       | `nil` (required, provided by the pipeline)       |
+| `global.ingressIP`                            | Ingress controllers IP address       | `nil` (required, provided by the pipeline)       |
+| `global.consulIP`                             | Consul servers IP address            | `nil` (required, provided by the pipeline)       |
+| `configurer.enabled`                          | Enabling IDAM configurer             | `false`                                          |
+| `configurer.services.label`                   | Service label                        | `nil` (required if configurer is enabled)        |
+| `configurer.services.clientID`                | Service client ID                    | `nil` (required if configurer is enabled)        |
+| `configurer.services.clientSecret`            | Service client secret                | `nil` (required if configurer is enabled)        |
+| `configurer.services.redirectURL`             | Service redirect URL                 | `nil` (required if configurer is enabled)        |
+| `configurer.services.allowedRole`             | Service role restriction             | `[]` (optional if configurer is enabled)         |
+| `configurer.services.selfRegistrationAllowed` | Whether self registration is allowed | `false` (optional if configurer is enabled)      |
+| `configurer.roles.id`                         | Role ID                              | `nil` (required if configurer is enabled)        |
+| `configurer.users.email`                      | User email                           | `nil` (required if configurer is enabled)        |
+| `configurer.users.password`                   | User password                        | `Password12` (optional if configurer is enabled) |
+| `configurer.users.forename`                   | User forename                        | `Forename` (optional if configurer is enabled)   |
+| `configurer.users.surname`                    | User surname                         | `Surname` (optional if configurer is enabled)    |
+| `configurer.users.group`                      | User group                           | `nil` (required if configurer is enabled)        |
+| `configurer.users.roles`                      | List of user roles                   | `[]` (optional if configurer is enabled)         |
