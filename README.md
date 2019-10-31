@@ -69,10 +69,10 @@ The following table lists the configurable parameters of the IDAM chart and thei
 
 | Parameter                                     | Description                          | Default                                          |
 | --------------------------------------------- | ------------------------------------ | ------------------------------------------------ |
-| `global.adminUser`                            | Username of IDAM service owner       | `nil` (required)                                 |
-| `global.adminPassword`                        | Password of IDAM service owner       | `nil` (required, provided by the pipeline)       |
 | `global.ingressIP`                            | Ingress controllers IP address       | `nil` (required, provided by the pipeline)       |
 | `global.consulIP`                             | Consul servers IP address            | `nil` (required, provided by the pipeline)       |
+| `global.adminUser`                            | Username of IDAM service owner       | `nil` (required)                                 |
+| `global.adminPassword`                        | Password of IDAM service owner       | `nil` (required)                                 |
 | `configurer.enabled`                          | Enabling IDAM configurer             | `false`                                          |
 | `configurer.services.label`                   | Service label                        | `nil` (required if configurer is enabled)        |
 | `configurer.services.clientID`                | Service client ID                    | `nil` (required if configurer is enabled)        |
