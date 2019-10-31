@@ -30,17 +30,10 @@ dependencies:
 ```
 idam:
   global:
+    ingressIP: ${INGRESS_IP}
+    consulIP: ${CONSUL_LB_IP}
     adminUser: ${IDAM_ADMIN_USER}
     adminPassword: ${IDAM_ADMIN_PASSWORD}
-
-  idam-api:
-    java:
-       ingressIP: ${INGRESS_IP}
-       consulIP: ${CONSUL_LB_IP}
-  idam-web-public:
-    java:
-       ingressIP: ${INGRESS_IP}
-       consulIP: ${CONSUL_LB_IP}
 ```
 
 The INGRESS_IP and CONSUL_LB_IP are all provided by the pipeline, but chart requires you to pass them through for preview environments.
@@ -78,10 +71,8 @@ The following table lists the configurable parameters of the IDAM chart and thei
 | ---------------------------------- | -------------------------------| ------------------------------------------ |
 | `global.adminUser`                 | Username of IDAM service owner | `nil` (required)                           |
 | `global.adminPassword`             | Password of IDAM service owner | `nil` (required, provided by the pipeline) |
-| `idam-api.java.ingressIP`          | Ingress controllers IP address | `nil` (required, provided by the pipeline) |
-| `idam-api.java.consulIP`           | Consul servers IP address      | `nil` (required, provided by the pipeline) |
-| `idam-web-public.java.ingressIP`   | Ingress controllers IP address | `nil` (required, provided by the pipeline) |
-| `idam-web-public.java.consulIP`    | Consul servers IP address      | `nil` (required, provided by the pipeline) |
+| `global.ingressIP`                 | Ingress controllers IP address | `nil` (required, provided by the pipeline) |
+| `global.consulIP`                  | Consul servers IP address      | `nil` (required, provided by the pipeline) |
 | `configurer.enabled`               | Enabling IDAM configurer       | `false`                                    |
 | `configurer.services.label`        | Service label                  | `nil` (required if configurer is enabled)  |
 | `configurer.services.clientID`     | Service client ID              | `nil` (required if configurer is enabled)  |
