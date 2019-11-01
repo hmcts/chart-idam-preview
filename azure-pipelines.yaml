@@ -1,0 +1,44 @@
+name: chart-idam-preview pipeline
+
+trigger:
+  branches:
+    include:
+      - refs/tags/*
+
+pr:
+  branches:
+    include:
+      - master
+
+resources:
+  repositories:
+    - repository: cnp-library
+      type: github
+      ref: master
+      name: hmcts/cnp-azuredevops-libraries
+      endpoint: 'hmcts'
+
+jobs:
+  - job: Validate
+    pool:
+      vmImage: 'Ubuntu 16.04'
+    steps:
+      - template: steps/charts/validate.yaml@cnp-library
+        parameters:
+          chartName: idam-preview
+          chartReleaseName: idam-chart-tests
+          chartNamespace: chart-tests
+          helmInstallTimeout: "1000"
+
+  - job: Release
+    dependsOn: Validate
+    # Make sure we have a tag to run this job
+    condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
+    pool:
+      vmImage: 'Ubuntu 16.04'
+    steps:
+      - template: steps/charts/release.yaml@cnp-library
+        parameters:
+          chartName: idam-preview
+          chartReleaseName: idam-chart-tests
+          chartNamespace: chart-tests

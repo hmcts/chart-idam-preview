@@ -5,7 +5,7 @@ idam-api:
   java:
     image: hmctspublic.azurecr.io/idam/api:stable
     ingressIP: '{{ .Values.global.ingressIP }}'
-    consulIP: '{{ .Values.global.ingressIP }}'
+    consulIP: '{{ .Values.global.consulIP }}'
     environment:
       JAVA_OPTS: -Xms256m -Xms768m
       STRATEGIC_API_URL: https://api-{{ .Release.Name }}.service.core-compute-preview.internal
