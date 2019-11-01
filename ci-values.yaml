@@ -1,0 +1,9 @@
+idam-api:
+  java:
+    ingressIP: 10.97.17.51
+    consulIP: 10.97.11.254
+
+idam-web-public:
+  java:
+    ingressIP: 10.97.17.51
+    consulIP: 10.97.11.254

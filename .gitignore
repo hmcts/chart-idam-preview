@@ -1,4 +1,4 @@
 requirements.lock
-idam/charts/*.tgz
+idam-preview/charts/*.tgz
 
 .idea
