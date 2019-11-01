@@ -97,3 +97,15 @@ The following table lists the configurable parameters of the IDAM chart and thei
 | `configurer.users.surname`                    | User surname                         | `Surname` (optional if configurer is enabled)    |
 | `configurer.users.group`                      | User group                           | `nil` (required if configurer is enabled)        |
 | `configurer.users.roles`                      | List of user roles                   | `[]` (optional if configurer is enabled)         |
+
+## Azure DevOps Builds
+
+Builds are run against the 'nonprod' AKS cluster.
+
+### Pull Request Validation
+
+A build is triggered when pull requests are created. This build will run `helm lint`, deploy the chart using `ci-values.yaml` and run `helm test`.
+
+### Release Build
+
+Triggered when the repository is tagged (e.g. when a release is created). It performs linting and testing, and will publish the chart to ACR on success.
