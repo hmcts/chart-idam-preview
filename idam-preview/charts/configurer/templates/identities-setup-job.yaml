@@ -19,22 +19,38 @@ spec:
       labels:
         app.kubernetes.io/name: idam-identities-importer
     spec:
+      volumes:
+        - name: vault
+          flexVolume:
+            driver: azure/kv
+            secretRef:
+              name: kvcreds
+            options:
+              tenantid: {{ .Values.global.tenantId }}
+              keyvaultname: {{ .Values.global.keyVaultName }}
+              keyvaultobjectnames: idam-owner-username;idam-owner-password
+              keyvaultobjecttypes: secret;secret
       {{- $global := .Values.global -}}
       {{- if .Values.roles }}
       initContainers:
         {{- range $index, $item := .Values.roles }}
         - name: idam-role-importer-{{ $index }}
           image: hmctspublic.azurecr.io/hmcts/idam/utils:latest
-          command: [ /scripts/create-role.sh ]
+          command: [ /bin/sh ]
           args:
-            - '{{ .id }}'
+            - -c
+            - >-
+              IDAM_ADMIN_USER=$(cat /mnt/secrets/idam-owner-username)
+              IDAM_ADMIN_PASSWORD=$(cat /mnt/secrets/idam-owner-password)
+              /scripts/create-role.sh
+              '{{ .id }}'
           env:
             - name: IDAM_API_URL
               value: http://idam-api
-            - name: IDAM_ADMIN_USER
-              value: {{ $global.adminUser }}
-            - name: IDAM_ADMIN_PASSWORD
-              value: {{ $global.adminPassword }}
+          volumeMounts:
+            - name: vault
+              mountPath: /mnt/secrets
+              readOnly: true
           resources:
             requests:
               cpu: 25m
@@ -50,21 +66,26 @@ spec:
         {{- range $index, $item := .Values.users }}
         - name: idam-user-importer-{{ $index }}
           image: hmctspublic.azurecr.io/hmcts/idam/utils:latest
-          command: [ /scripts/create-user.sh ]
+          command: [ /bin/sh ]
           args:
-            - '{{ .email }}'
-            - '{{ .forename | default "Forename" }}'
-            - '{{ .surname | default "Surname" }}'
-            - '{{ .password | default "Password12" }}'
-            - '{{ .group }}'
-            - '[{{ range $index, $item := .roles }}{{ if $index }},{{ end }}{{ printf "{\"code\":\"%s\"}" $item }}{{end}}]'
+            - -c
+            - >-
+              IDAM_ADMIN_USER=$(cat /mnt/secrets/idam-owner-username)
+              IDAM_ADMIN_PASSWORD=$(cat /mnt/secrets/idam-owner-password)
+              /scripts/create-user.sh
+              '{{ .email }}'
+              '{{ .forename | default "Forename" }}'
+              '{{ .surname | default "Surname" }}'
+              '{{ .password | default "Password12" }}'
+              '{{ .group }}'
+              '[{{ range $index, $item := .roles }}{{ if $index }},{{ end }}{{ printf "{\"code\":\"%s\"}" $item }}{{end}}]'
           env:
             - name: IDAM_API_URL
               value: http://idam-api
-            - name: IDAM_ADMIN_USER
-              value: {{ $global.adminUser }}
-            - name: IDAM_ADMIN_PASSWORD
-              value: {{ $global.adminPassword }}
+          volumeMounts:
+            - name: vault
+              mountPath: /mnt/secrets
+              readOnly: true
           resources:
             requests:
               cpu: 25m

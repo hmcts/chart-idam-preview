@@ -29,10 +29,6 @@ dependencies:
 
 ```
 idam-preview:
-  global:
-    adminUser: ${IDAM_ADMIN_USER}
-    adminPassword: ${IDAM_ADMIN_PASSWORD}
-
   idam-api:
     java:
       ingressIP: ${INGRESS_IP}
@@ -69,6 +65,9 @@ idam-preview:
       group: caseworker
       roles:
       - ccd-import
+  global:
+    tenantId: '...'
+    keyVaultName: 'kv-aat'
 ```
 
 ## Configuration
@@ -81,8 +80,6 @@ The following table lists the configurable parameters of the IDAM chart and thei
 | `idam-api.java.consulIP`                      | Consul servers IP address            | `nil` (required, provided by the pipeline)       |
 | `idam-web-public.java.ingressIP`              | Ingress controllers IP address       | `nil` (required, provided by the pipeline)       |
 | `idam-web-public.java.consulIP`               | Consul servers IP address            | `nil` (required, provided by the pipeline)       |
-| `global.adminUser`                            | Username of IDAM service owner       | `nil` (required)                                 |
-| `global.adminPassword`                        | Password of IDAM service owner       | `nil` (required)                                 |
 | `configurer.enabled`                          | Enabling IDAM configurer             | `false`                                          |
 | `configurer.services.label`                   | Service label                        | `nil` (required if configurer is enabled)        |
 | `configurer.services.clientID`                | Service client ID                    | `nil` (required if configurer is enabled)        |
@@ -97,6 +94,10 @@ The following table lists the configurable parameters of the IDAM chart and thei
 | `configurer.users.surname`                    | User surname                         | `Surname` (optional if configurer is enabled)    |
 | `configurer.users.group`                      | User group                           | `nil` (required if configurer is enabled)        |
 | `configurer.users.roles`                      | List of user roles                   | `[]` (optional if configurer is enabled)         |
+| `global.tenantId`                             | Tenant ID containing Key Vault       | `nil` (required, if configurer is enabled)       |
+| `global.keyVaultName`                         | Name of Key Vault                    | `nil` (required, if configurer is enabled)       |
+
+Note: When configurer is enabled both `idam-owner-username` and `idam-owner-password` must exist in configured Key Vault.  
 
 ## Azure DevOps Builds
 
