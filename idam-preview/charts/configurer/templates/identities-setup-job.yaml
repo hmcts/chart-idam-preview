@@ -42,9 +42,11 @@ spec:
             - >-
               IDAM_ADMIN_USER=$(cat /mnt/secrets/idam-owner-username)
               IDAM_ADMIN_PASSWORD=$(cat /mnt/secrets/idam-owner-password)
-              /scripts/create-role.sh
+              /wait && /scripts/create-role.sh
               '{{ .id }}'
           env:
+            - name: WAIT_HOSTS
+              value: idam-api:80
             - name: IDAM_API_URL
               value: http://idam-api
           volumeMounts:
@@ -72,7 +74,7 @@ spec:
             - >-
               IDAM_ADMIN_USER=$(cat /mnt/secrets/idam-owner-username)
               IDAM_ADMIN_PASSWORD=$(cat /mnt/secrets/idam-owner-password)
-              /scripts/create-user.sh
+              /wait && /scripts/create-user.sh
               '{{ .email }}'
               '{{ .forename | default "Forename" }}'
               '{{ .surname | default "Surname" }}'
@@ -80,6 +82,8 @@ spec:
               '{{ .group }}'
               '[{{ range $index, $item := .roles }}{{ if $index }},{{ end }}{{ printf "{\"code\":\"%s\"}" $item }}{{end}}]'
           env:
+            - name: WAIT_HOSTS
+              value: idam-api:80
             - name: IDAM_API_URL
               value: http://idam-api
           volumeMounts:

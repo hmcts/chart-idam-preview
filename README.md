@@ -21,7 +21,7 @@ Below is example configuration for running this chart on a PR to test your appli
 ```
 dependencies:
   - name: idam-preview
-    version: '1.1.0'
+    version: '1.2.0'
     repository: '@hmctspublic'
 ```
 
