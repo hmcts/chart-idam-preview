@@ -21,7 +21,7 @@ Below is example configuration for running this chart on a PR to test your appli
 ```
 dependencies:
   - name: idam-preview
-    version: '1.1.0'
+    version: '1.2.0'
     repository: '@hmctspublic'
 ```
 
@@ -110,3 +110,4 @@ A build is triggered when pull requests are created. This build will run `helm l
 ### Release Build
 
 Triggered when the repository is tagged (e.g. when a release is created). It performs linting and testing, and will publish the chart to ACR on success.
+

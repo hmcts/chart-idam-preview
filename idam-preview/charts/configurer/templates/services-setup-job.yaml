@@ -41,7 +41,7 @@ spec:
             - >-
               IDAM_ADMIN_USER=$(cat /mnt/secrets/idam-owner-username)
               IDAM_ADMIN_PASSWORD=$(cat /mnt/secrets/idam-owner-password)
-              /scripts/create-service.sh
+              /wait && /scripts/create-service.sh
               '{{ .label }}'
               '{{ .selfRegistrationAllowed | default false }}'
               '{{ .clientID }}'
@@ -49,6 +49,8 @@ spec:
               '[{{ .redirectURL | quote }}]'
               '[{{ .allowedRole | default nil | quote }}]'
           env:
+            - name: WAIT_HOSTS
+              value: idam-api:80
             - name: IDAM_API_URL
               value: http://idam-api
           volumeMounts:
