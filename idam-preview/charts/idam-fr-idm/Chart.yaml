@@ -1,3 +1,4 @@
+apiVersion: v1
 name: idam-fr-idm
 version: 1.0.0
 description: IDAM ForgeRock IDM
