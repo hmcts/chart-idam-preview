@@ -39,9 +39,10 @@ spec:
           args:
             - -c
             - >-
+              /wait &&
               IDAM_ADMIN_USER=$(cat /mnt/secrets/idam-owner-username)
               IDAM_ADMIN_PASSWORD=$(cat /mnt/secrets/idam-owner-password)
-              /wait && /scripts/create-service.sh
+              /scripts/create-service.sh
               '{{ .label }}'
               '{{ .selfRegistrationAllowed | default false }}'
               '{{ .clientID }}'
