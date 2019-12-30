@@ -40,9 +40,10 @@ spec:
           args:
             - -c
             - >-
+              /wait &&
               IDAM_ADMIN_USER=$(cat /mnt/secrets/idam-owner-username)
               IDAM_ADMIN_PASSWORD=$(cat /mnt/secrets/idam-owner-password)
-              /wait && /scripts/create-role.sh
+              /scripts/create-role.sh
               '{{ .id }}'
           env:
             - name: WAIT_HOSTS
@@ -72,9 +73,10 @@ spec:
           args:
             - -c
             - >-
+              /wait &&
               IDAM_ADMIN_USER=$(cat /mnt/secrets/idam-owner-username)
               IDAM_ADMIN_PASSWORD=$(cat /mnt/secrets/idam-owner-password)
-              /wait && /scripts/create-user.sh
+              /scripts/create-user.sh
               '{{ .email }}'
               '{{ .forename | default "Forename" }}'
               '{{ .surname | default "Surname" }}'
